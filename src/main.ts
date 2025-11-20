@@ -1,38 +1,46 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 
+async function getSubVersion(): Promise<any> {
+    const branchName = github.context.ref_name;
+
+    const token = core.getInput("token", { required: true });
+    const octokit = github.getOctokit(token);
+
+    const owner = github.context.repository.owner;
+    const repo = github.context.repository.repo;
+
+      // Lista TODAS las workflow runs del repo
+    const runs = await octokit.rest.actions.listReleases({
+          owner,
+          repo,
+          per_page: 50 // puedes aumentar de 1 a 100
+      });
+
+      const filtered = releases.data.filter(r =>
+          r.tag_name.startsWith(branchName));
+
+      if(filtered.length == 0) {
+        return 1;
+      } else {
+        return filtered.length + 1;
+      }
+  }
+
 async function run(): Promise<void> {
   try {
-    //refs/heads/release
-    let version = "";
+    const branchName = github.context.ref_name.split("/").pop();
+    core.debug(`branchName: ${branchName}`);
 
-    if (github.context.ref.startsWith("refs/heads")) {
-      core.debug("Headers");
-      //const refs = github.context.ref.split('/');
-      //version = github.context.ref.replace('refs/tags/release/', '');
-      const branchName = github.context.ref.split("/").pop();
-      const runNumber = github.context.runNumber;
-      core.debug(`branchName: ${branchName}`);
-      core.debug(`runNumber: ${runNumber}`);
-
-      version = `${branchName}.${runNumber}`;
-    } else if (github.context.ref.startsWith("refs/tags/")) {
-      core.debug("Tag");
-      const tagName = github.context.ref.split("/").pop();
-      core.debug(`tagName: ${tagName}`);
-
-      version = `${tagName}`;
-    }
-
-    if (version.toLocaleUpperCase().startsWith("V")) {
-      version = version.substr(1);
-    }
+    let version = `${branchName}`;
+    let subVersion = await getSubVersion(); 
 
     core.debug(`Version: ${version}`);
     core.setOutput("version", version);
-    core.info(`Version: ${version}`);
-  } catch (error) {
-    core.setFailed(error.message);
+    core.setOutput("tag-release", `${version}.${subVersion}`);
+    
+  } catch (ex) {
+    core.setFailed(ex.message);
   }
 }
 
