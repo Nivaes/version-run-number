@@ -6,7 +6,7 @@ outputs:
     description: "The generate version on run number"
 runs:
   using: "node20"
-  main: "dist/main.js"
+  main: "dist/index.js"
 branding:
   icon: "tag"
   color: "gray-dark"
