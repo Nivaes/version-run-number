@@ -15,7 +15,7 @@ The pushed version. If `github.ref` was `/refs/tags/release/v2.6` or `refs/tags/
 ````YML
 steps:
     - id: get_version
-      uses: nivaes/get-version-run-number@v1
+      uses: nivaes/version-run-number@v1
 
     - run: echo ${{ steps.get_version.outputs.version }}
 
