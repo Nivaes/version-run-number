@@ -14,19 +14,21 @@ async function getBranchName(): Promise<string> {
 }
 
 async function getSubVersion(branchName: string): Promise<any> {
-  const token = core.getInput("token", {required: true});
+  const token = core.getInput("token", { required: true });
   const octokit = github.getOctokit(token);
 
-  const {owner, repo} = github.context.repo;
+  const { owner, repo } = github.context.repo;
 
   // Lista TODAS las workflow runs del repo
   const releases = await octokit.rest.repos.listReleases({
     owner,
     repo,
-    per_page: 50 // puedes aumentar de 1 a 100
+    per_page: 50, // puedes aumentar de 1 a 100
   });
 
-  const filtered = releases.data.filter(r => r.tag_name.startsWith(branchName));
+  const filtered = releases.data.filter((r) =>
+    r.tag_name.startsWith(branchName),
+  );
 
   if (filtered.length == 0) {
     return 1;
