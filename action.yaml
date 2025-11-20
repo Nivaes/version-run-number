@@ -1,12 +1,12 @@
-name: 'Version Run Number'
-description: 'Generates a version number from github.ref.runNumber'
-author: 'Nivaes'
+name: "Version Run Number"
+description: "Generates a version number from github.ref.runNumber"
+author: "Nivaes"
 outputs:
   version:
-    description: 'The generate version on run number'
+    description: "The generate version on run number"
 runs:
-  using: 'node20'
-  main: 'dist/main.js'
+  using: "node20"
+  main: "dist/main.js"
 branding:
-  icon: 'tag'
-  color: 'gray-dark'
+  icon: "tag"
+  color: "gray-dark"
