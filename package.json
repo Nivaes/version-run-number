@@ -2,7 +2,7 @@
   "name": "version-run-number",
   "version": "2.0.0",
   "description": "",
-  "main": "lib/main.js",
+  "main": "lib/src/main.js",
   "author": "Nivaes Systems",
   "license": "MIT",
   "scripts": {
@@ -35,6 +35,7 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
     "@typescript-eslint/parser": "^8.47.0",
     "@vercel/ncc": "^0.38.4",
     "eslint": "^9.39.1",

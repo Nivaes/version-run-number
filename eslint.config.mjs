@@ -1,8 +1,8 @@
 import { defineConfig } from "eslint/config";
 import jest from "eslint-plugin-jest";
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import globals from "globals";
 import tsParser from "@typescript-eslint/parser";
+import globals from "globals";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
@@ -66,7 +66,7 @@ export default defineConfig([{
         // "@typescript-eslint/func-call-spacing": ["error", "never"],
         "@typescript-eslint/no-array-constructor": "error",
         "@typescript-eslint/no-empty-interface": "error",
-        // "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-extraneous-class": "error",
         "@typescript-eslint/no-for-in-array": "error",
         "@typescript-eslint/no-inferrable-types": "error",
