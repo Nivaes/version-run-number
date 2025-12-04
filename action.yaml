@@ -5,8 +5,18 @@ outputs:
   version:
     description: "The generate version on run number"
 runs:
-  using: "node20"
-  main: "dist/index.js"
+  using: "composite"
+  steps:
+    - name: Instalar dotnet-script
+      shell: bash
+      run: dotnet tool install -g dotnet-script
+
+    - name: Ejecutar script C#
+      id: run
+      shell: bash
+      run: |
+        result=$(~/.dotnet/tools/dotnet-script src/generate-version.csx)
+        echo "output=$result" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
   color: "gray-dark"
