@@ -11,7 +11,7 @@ jobs:
       - uses: ./
         id: get_version
       - name: Version
-        run: echo ${{ steps.get_version.outputs.version }}
+        run: echoo ${{ steps.get_version.outputs.version }}
       - name: Dump GitHub context
         continue-on-error: true
         env:
