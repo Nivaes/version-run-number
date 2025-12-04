@@ -14,11 +14,8 @@ runs:
     - name: Ejecutar script C#
       id: run
       shell: bash
-      # run: |
-      #   result=$(~/.dotnet/tools/dotnet-script src/generate-version.csx)
-      #   echo "output=$result" >> $GITHUB_OUTPUT
       run: |
-        result=$(~/.dotnet/tools/csi src/generate-version.csx)
+        result=$(~/.dotnet/tools/dotnet-script src/generate-version.csx)
         echo "output=$result" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
