@@ -15,8 +15,8 @@ runs:
       id: run
       shell: bash
       run: |
-        result=$(~/.dotnet/tools/dotnet-script src/generate-version.csx)
-        echo "output=$result" >> $GITHUB_OUTPUT
+        result=$(~/.dotnet/tools/dotnet-script src/run.csx)
+        echo "version=$result" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
   color: "gray-dark"
