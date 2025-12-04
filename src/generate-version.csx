@@ -1,10 +1,5 @@
 using System;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        string name = args.Length > 0 ? args[0] : "Mundo";
-        Console.WriteLine($"Hola, {name}!");
-    }
-}
+
+string name = Args.Length > 0 ? Args[0] : "Mundo";
+Console.WriteLine($"Hola, {name}!");
