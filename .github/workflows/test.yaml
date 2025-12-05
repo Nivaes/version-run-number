@@ -12,6 +12,12 @@ jobs:
         id: get_version
       - name: Version
         run: echo ${{ steps.get_version.outputs.version }}
+      - name: Major
+        run: echo ${{ steps.get_version.outputs.major }}
+       
+      - name: Minor
+        run: echo ${{ steps.get_version.outputs.minor }}
+
       - name: Dump GitHub context
         continue-on-error: true
         env:
