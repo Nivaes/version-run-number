@@ -2,8 +2,8 @@ name: "Version Pack"
 description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 inputs:
-  prereleased:
-    description: "Generate the prereleased version."
+  package-flow:
+    description: "Generate the package flow version."
     required: false
 outputs:
   version:
@@ -26,7 +26,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/run.csx ${{ inputs.prereleased }})
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/run.csx ${{ inputs.package-flow }})
         
         version=$(echo "$output" | tail -n 3 | sed -n '1p')
         major=$(echo "$output" | tail -n 3 | sed -n '2p')
