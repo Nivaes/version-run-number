@@ -27,10 +27,10 @@ var isRC = true;
 
 if (Args.Count() > 0)
 {
-    if(Args[0].ToUpper().StartsWith("PRE"))
-        isPre = true;
     if(Args[0].ToUpper().StartsWith("RC"))
         isRC = true;
+    else 
+        isPre = true;
 }
 
 string versionMajor = "0.0";

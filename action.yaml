@@ -2,8 +2,8 @@ name: "Version Pack"
 description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 inputs:
-  rc:
-    description: "Generate de rc version."
+  prereleased:
+    description: "Generate the prereleased version."
     required: false
 outputs:
   version:
@@ -26,7 +26,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script src/run.csx ${{ inputs.rc }})
+        output=$(~/.dotnet/tools/dotnet-script src/run.csx ${{ inputs.prereleased }})
         echo Version: $output
         
         version=$(echo "$output" | tail -n 3 | sed -n '1p')
