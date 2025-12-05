@@ -1,5 +1,8 @@
 using System;
 
-var version = "2.3.5";
-Console.WriteLine($"{version}");
+var versionMajor = "2.3";
+var versionMinor = "5";
 
+Console.WriteLine($"{versionMajor}.{versionMinor}");
+Console.WriteLine($"{versionMajor}");
+Console.WriteLine($"{versionMinor}");

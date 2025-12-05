@@ -5,6 +5,12 @@ outputs:
   version:
     description: "The generate version on run number"
     value: ${{ steps.run.outputs.version }}
+  major:
+    description: "Version major"
+    value: ${{ steps.run.outputs.major }}
+  minor:
+    description: "Version major"
+    value: ${{ steps.run.outputs.minor }}
 runs:
   using: "composite"
   steps:
@@ -16,9 +22,16 @@ runs:
       id: run
       shell: bash
       run: |
-        result=$(~/.dotnet/tools/dotnet-script src/run.csx)
-        echo Version: $result
-        echo "version=$result" >> $GITHUB_OUTPUT
+        output=$(~/.dotnet/tools/dotnet-script src/run.csx)
+        echo Version: $output
+        
+        version=$(echo "$output" | tail -n 3 | sed -n '1p')
+        major=$(echo "$output" | tail -n 3 | sed -n '2p')
+        minor=$(echo "$output" | tail -n 3 | sed -n '3p')
+
+        echo "version=$version" >> $GITHUB_OUTPUT
+        echo "major=$major" >> $GITHUB_OUTPUT
+        echo "minor=$minor" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
   color: "gray-dark"
