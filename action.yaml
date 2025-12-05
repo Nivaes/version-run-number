@@ -4,6 +4,7 @@ author: "Nivaes"
 outputs:
   version:
     description: "The generate version on run number"
+    value: ${{ steps.run.outputs.version }}
 runs:
   using: "composite"
   steps:
