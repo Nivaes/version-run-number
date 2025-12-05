@@ -26,7 +26,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script src/run.csx ${{ inputs.prereleased }})
+        output=$(~/.dotnet/tools/dotnet-script ./src/run.csx ${{ inputs.prereleased }})
         echo Version: $output
         
         version=$(echo "$output" | tail -n 3 | sed -n '1p')
