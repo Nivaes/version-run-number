@@ -27,11 +27,12 @@ runs:
       shell: bash
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/run.csx ${{ inputs.prereleased }})
-        echo Version: $output
         
         version=$(echo "$output" | tail -n 3 | sed -n '1p')
         major=$(echo "$output" | tail -n 3 | sed -n '2p')
         minor=$(echo "$output" | tail -n 3 | sed -n '3p')
+
+        echo Version: $version
 
         echo "version=$version" >> $GITHUB_OUTPUT
         echo "major=$major" >> $GITHUB_OUTPUT
