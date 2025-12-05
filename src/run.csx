@@ -39,8 +39,6 @@ string versionMinor = "0";
 string branch = Run("git", "rev-parse --abbrev-ref HEAD");
 string numberComints = Run("git", "rev-list --count HEAD");
 
-branch = "release/1.15";
-
 var branch_part = branch.Split("/");
 
 if(branch_part.Count() > 1)
