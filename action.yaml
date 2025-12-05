@@ -1,9 +1,9 @@
-name: "Version Run Number"
-description: "Generates a version number from github.ref.runNumber"
+name: "Version Pack"
+description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 outputs:
   version:
-    description: "The generate version on run number"
+    description: "The generate version pack"
     value: ${{ steps.run.outputs.version }}
 runs:
   using: "composite"
