@@ -17,6 +17,8 @@ var numberPatchVersion = GetLastVersion();
 
 string versionPatch = GenerateVersionPatch(Args, branch_part[0] , numberPatchVersion);
 
-Console.WriteLine($"{versionMajor}{versionPatch}");
+string version = $"{versionMajor}{versionPatch}";
+
+Console.WriteLine(version);
 Console.WriteLine($"{versionMajor}");
 Console.WriteLine($"{versionPatch}");
