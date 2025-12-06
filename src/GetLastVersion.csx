@@ -4,7 +4,7 @@ public int GetLastVersion(string branch)
 
     var patchVersionSplit = lastVersion.Split(".");
 
-    if(lastVersion.StartsWith(branch))
+    if(!lastVersion.StartsWith(branch))
         return 0;
 
     if(patchVersionSplit.Count() > 0)
