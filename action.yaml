@@ -25,13 +25,13 @@ runs:
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx ${{ inputs.package-flow }})
         
-        version-pack=$(echo "$output" | tail -n 3 | sed -n '1p')
-        version-release=$(echo "$output" | tail -n 3 | sed -n '2p')
+        version_pack=$(echo "$output" | tail -n 3 | sed -n '1p')
+        version_release=$(echo "$output" | tail -n 3 | sed -n '2p')
 
-        echo Version: $version-release - $version-pack
+        echo Version: $version_release - $version_pack
 
-        echo "version-pack=$version-pack" >> $GITHUB_OUTPUT
-        echo "version-release=$version-release" >> $GITHUB_OUTPUT
+        echo "version-pack=$version_pack" >> $GITHUB_OUTPUT
+        echo "version-release=$version_release" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
   color: "gray-dark"
