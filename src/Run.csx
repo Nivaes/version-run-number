@@ -1,6 +1,7 @@
 #load "RunCommand.csx"
 #load "GenerateVersion.csx"
 #load "GetLastVersion.csx"
+#load "GenerateTag.csx"
 using System;
 
 string versionMajor = "0.0";
@@ -13,7 +14,7 @@ if(branch_part.Count() > 1)
 
 string numberComints = RunCommand("git", "rev-list --count HEAD");
 
-var numberPatchVersion = GetLastVersion();
+var numberPatchVersion = GetLastVersion(branch);
 
 string versionPatch = GenerateVersionPatch(Args, branch_part[0] , numberPatchVersion);
 
