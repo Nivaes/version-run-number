@@ -20,8 +20,8 @@ string versionPatch = GenerateVersionPatch(Args, branch_part[0] , numberPatchVer
 
 string version = $"{versionMajor}{versionPatch}";
 
-GenerateTag(version);
+GenerateTag($"{branch}{versionPatch}");
 
-Console.WriteLine(version);
+Console.WriteLine($"{versionMajor}{versionPatch}");
 Console.WriteLine($"{versionMajor}");
 Console.WriteLine($"{versionPatch}");
