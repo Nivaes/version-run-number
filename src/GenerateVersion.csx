@@ -1,50 +1,48 @@
 #load "RunCommand.csx"
 
-(string versionMajor, string versionMinor) GenerateVersion(IList<string> args)
+enum Patch
 {
-    var isPreview = false;
-    var isReleaseCandidate = false;
+    None,
+    Preview,
+    ReleaseCandidate,
+    Release
+}
+
+string GenerateVersionPatch(IList<string> args, string patchType, int numberPatchVersion)
+{
+    string versionPatch;
+    Patch patch = Patch.None;
 
     if (args.Count() > 0)
     {
         var arg = args[0].ToUpper();
         if(arg.Contains("CANDIDATE") || arg.Contains("RC"))
-            isReleaseCandidate = true;
+            patch = Patch.ReleaseCandidate;
         else if(arg.Contains("PRE"))
-            isPreview = true;
+            patch = Patch.Preview;
     }
 
-    versionMajor = "0.0";
-    versionMinor = "0";
-    string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
-    string numberComints = RunCommand("git", "rev-list --count HEAD");
-
-    var branch_part = branch.Split("/");
-
-    if(branch_part.Count() > 1)
-        versionMajor = branch_part[branch_part.Count() - 1];
-
-    if(branch_part[0] ==  "develop")
-        versionMinor = $"-beta.{numberComints}";
-    else if(branch_part[0] ==  "alpha")
-        versionMinor = $"-alpha.{numberComints}";
-    else if(branch_part[0] ==  "beta")
-        versionMinor = $"-beta.{numberComints}";
-    else if(branch_part[0] ==  "preview")
-        versionMinor = $"-preview.{numberComints}";
-    else if(branch_part[0] == "rc")
-        versionMinor = $"-rc.{numberComints}";
-    else if(branch_part[0] == "release")
+    if(patchType ==  "develop")
+        versionPatch = $"-alpha.{numberPatchVersion}";
+    else if(patchType ==  "alpha")
+        versionPatch = $"-alpha.{numberPatchVersion}";
+    else if(patchType ==  "beta")
+        versionPatch = $"-beta.{numberPatchVersion}";
+    else if(patchType ==  "preview")
+        versionPatch = $"-preview.{numberPatchVersion}";
+    else if(patchType == "rc")
+        versionPatch = $"-rc.{numberPatchVersion}";
+    else if(patchType == "release")
     {
-        if(isPreview)
-            versionMinor = $"-preview.{numberComints}";
-        else if(isReleaseCandidate)
-            versionMinor = $"-rc.{numberComints}";
+        if(patch == Patch.Preview)
+            versionPatch = $"-preview.{numberPatchVersion}";
+        else if(patch == Patch.ReleaseCandidate)
+            versionPatch = $"-rc.{numberPatchVersion}";
         else
-            versionMinor = $".{numberComints}";
+            versionPatch = $".{numberPatchVersion}";
     }
     else 
-        versionMinor = $"-alpha.{numberComints}";
+        versionPatch = $"-alpha.{numberPatchVersion}";
 
-    return (versionMajor, versionMinor);
+    return versionPatch;
 }

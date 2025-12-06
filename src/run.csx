@@ -1,10 +1,22 @@
 #load "RunCommand.csx"
 #load "GenerateVersion.csx"
-
+#load "GetLastVersion.csx"
 using System;
 
-(string versionMajor, string versionMinor) = GenerateVersion(Args);
+string versionMajor = "0.0";
 
-Console.WriteLine($"{versionMajor}{versionMinor}");
+string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
+var branch_part = branch.Split("/");
+
+if(branch_part.Count() > 1)
+    versionMajor = branch_part[branch_part.Count() - 1];
+
+// string numberComints = RunCommand("git", "rev-list --count HEAD");
+
+var numberPatchVersion = GetLastVersion();
+
+string versionPatch = GenerateVersionPatch(Args, branch_part[0] , numberPatchVersion);
+
+Console.WriteLine($"{versionMajor}{versionPatch}");
 Console.WriteLine($"{versionMajor}");
-Console.WriteLine($"{versionMinor}");
+Console.WriteLine($"{versionPatch}");

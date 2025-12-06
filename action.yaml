@@ -26,7 +26,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/run.csx ${{ inputs.package-flow }})
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx ${{ inputs.package-flow }})
         
         version=$(echo "$output" | tail -n 3 | sed -n '1p')
         major=$(echo "$output" | tail -n 3 | sed -n '2p')
