@@ -6,15 +6,12 @@ inputs:
     description: "Generate the package flow version."
     required: false
 outputs:
-  version:
-    description: "The generate version pack"
-    value: ${{ steps.run.outputs.version }}
-  major:
-    description: "Version major"
-    value: ${{ steps.run.outputs.major }}
-  minor:
-    description: "Version major"
-    value: ${{ steps.run.outputs.minor }}
+  version-pack:
+    description: "Version pack"
+    value: ${{ steps.run.outputs.version-pack }}
+  version-release:
+    description: "Version release"
+    value: ${{ steps.run.outputs.version-release }}
 runs:
   using: "composite"
   steps:
@@ -28,15 +25,13 @@ runs:
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx ${{ inputs.package-flow }})
         
-        version=$(echo "$output" | tail -n 3 | sed -n '1p')
-        major=$(echo "$output" | tail -n 3 | sed -n '2p')
-        minor=$(echo "$output" | tail -n 3 | sed -n '3p')
+        version-pack=$(echo "$output" | tail -n 3 | sed -n '1p')
+        version-release=$(echo "$output" | tail -n 3 | sed -n '2p')
 
-        echo Version: $version
+        echo Version: $version-release - $version-pack
 
-        echo "version=$version" >> $GITHUB_OUTPUT
-        echo "major=$major" >> $GITHUB_OUTPUT
-        echo "minor=$minor" >> $GITHUB_OUTPUT
+        echo "version-pack=$version-pack" >> $GITHUB_OUTPUT
+        echo "version-release=$version-release" >> $GITHUB_OUTPUT
 branding:
   icon: "tag"
   color: "gray-dark"

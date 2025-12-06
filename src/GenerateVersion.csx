@@ -8,7 +8,7 @@ enum Patch
     Release
 }
 
-string GenerateVersionPatch(IList<string> args, string patchType, int numberPatchVersion)
+string GenerateVersionPatch(IList<string> args, string patchType)
 {
     string versionPatch;
     Patch patch = Patch.None;
@@ -23,26 +23,26 @@ string GenerateVersionPatch(IList<string> args, string patchType, int numberPatc
     }
 
     if(patchType ==  "develop")
-        versionPatch = $"-alpha.{numberPatchVersion}";
+        versionPatch = $"-alpha";
     else if(patchType ==  "alpha")
-        versionPatch = $"-alpha.{numberPatchVersion}";
+        versionPatch = $"-alpha";
     else if(patchType ==  "beta")
-        versionPatch = $"-beta.{numberPatchVersion}";
+        versionPatch = $"-beta.";
     else if(patchType ==  "preview")
-        versionPatch = $"-preview.{numberPatchVersion}";
+        versionPatch = $"-preview";
     else if(patchType == "rc")
-        versionPatch = $"-rc.{numberPatchVersion}";
+        versionPatch = $"-rc.";
     else if(patchType == "release")
     {
         if(patch == Patch.Preview)
-            versionPatch = $"-preview.{numberPatchVersion}";
+            versionPatch = $"-preview";
         else if(patch == Patch.ReleaseCandidate)
-            versionPatch = $"-rc.{numberPatchVersion}";
+            versionPatch = $"-rc";
         else
-            versionPatch = $".{numberPatchVersion}";
+            versionPatch = $"";
     }
     else 
-        versionPatch = $"-alpha.{numberPatchVersion}";
+        versionPatch = $"-alpha";
 
     return versionPatch;
 }

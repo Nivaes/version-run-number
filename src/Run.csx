@@ -16,12 +16,11 @@ string numberComints = RunCommand("git", "rev-list --count HEAD");
 
 var numberPatchVersion = GetLastVersion(branch);
 
-string versionPatch = GenerateVersionPatch(Args, branch_part[0] , numberPatchVersion);
+string versionPatch = GenerateVersionPatch(Args, branch_part[0]);
 
 string version = $"{versionMajor}{versionPatch}";
 
-GenerateTag($"{branch}{versionPatch}");
+GenerateTag($"{branch}.{numberPatchVersion}");
 
-Console.WriteLine($"{versionMajor}{versionPatch}");
-Console.WriteLine($"{versionMajor}");
-Console.WriteLine($"{versionPatch}");
+Console.WriteLine($"{versionMajor}{versionPatch}.{numberPatchVersion}");
+Console.WriteLine($"{versionMajor}.{numberPatchVersion}");
