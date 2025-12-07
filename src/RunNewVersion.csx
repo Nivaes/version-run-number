@@ -29,10 +29,8 @@ public (string versionPack, string versionRelease) RunNewVersion(string packageF
 
     string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
 
-    // GenerateTag($"{prefixBranch}/{versionMajor}.{numberPatchVersion}");
-
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
-    var versionRelease = $"{versionMajor}.{numberPatchVersion}";
+    var versionRelease = $"{prefixBranch}/{versionMajor}.{numberPatchVersion}";
 
     return (versionPack, versionRelease);
 }
