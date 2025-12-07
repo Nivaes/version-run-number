@@ -12,7 +12,7 @@ var branch_part = branch.Split("/");
 if(branch_part.Count() > 1)
     versionMajor = branch_part[branch_part.Count() - 1];
 
-string numberComints = RunCommand("git", "rev-list --count HEAD");
+// string numberComints = RunCommand("git", "rev-list --count HEAD");
 
 var numberPatchVersion = GetLastVersion(branch);
 
