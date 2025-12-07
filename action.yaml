@@ -9,9 +9,9 @@ inputs:
     description: "Version of packet."
     required: false
 outputs:
-  version_number:
+  version-number:
     description: "Version number"
-    value: ${{ steps.run.outputs.version_number }}
+    value: ${{ steps.run.outputs.version-number }}
   version-pack:
     description: "Version pack"
     value: ${{ steps.run.outputs.version-pack }}
