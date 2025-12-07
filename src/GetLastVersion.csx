@@ -24,5 +24,5 @@ public int GetLastVersion(string versionMajor)
         .Distinct()
         .Max();
 
-    return version + 1;
+    return version;
 }

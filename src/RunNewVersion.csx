@@ -25,11 +25,11 @@ public (string versionPack, string versionRelease) RunNewVersion(string packageF
         prefixBranch = branch;
     }
 
-    var numberPatchVersion = GetLastVersion($"{prefixBranch}/{versionMajor}");
+    var numberPatchVersion = GetLastVersion($"{prefixBranch}/{versionMajor}") + 1;
 
     string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
 
-    GenerateTag($"{prefixBranch}/{versionMajor}.{numberPatchVersion}");
+    // GenerateTag($"{prefixBranch}/{versionMajor}.{numberPatchVersion}");
 
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
     var versionRelease = $"{versionMajor}.{numberPatchVersion}";
