@@ -3,26 +3,33 @@
 #load "GetLastVersion.csx"
 #load "GenerateTag.csx"
 using System;
+using System.Text.RegularExpressions;
 
 public (string versionPack, string versionRelease) RunNewVersion(string packageFlow)
 {
     string versionMajor = "0.0";
+    string prefixBranch = "";
 
     string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
     var branch_part = branch.Split("/");
 
-    if(branch_part.Count() == 1)
-        versionMajor = $"{branch}/0.0";
+    var regex = new Regex(@"^\d+(\.\d+)*$");
+    if(branch_part.Count() > 0 && regex.IsMatch(branch_part[^1]))
+    {
+        versionMajor = branch_part[^1];
+        prefixBranch = string.Join("", branch_part[..^1]);
+    }
     else
-        versionMajor = branch_part[branch_part.Count() - 1];
+    {
+        versionMajor = "0.0";
+        prefixBranch = branch;
+    }
 
-    var numberPatchVersion = GetLastVersion(versionMajor);
+    var numberPatchVersion = GetLastVersion($"{prefixBranch}/{versionMajor}");
 
     string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
 
-    // string version = $"{versionMajor}/{versionMajor}.{versionPatch}";
-
-    GenerateTag($"{versionMajor}.{numberPatchVersion}");
+    GenerateTag($"{prefixBranch}/{versionMajor}.{numberPatchVersion}");
 
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
     var versionRelease = $"{versionMajor}.{numberPatchVersion}";

@@ -1,9 +1,16 @@
+using System;
+
 public int GetLastVersion(string versionMajor)
 {
     string lastVersions = RunCommand("git", $"--no-pager tag --list \"{versionMajor}.*\"");
 
-    var version = lastVersions
-        .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+    if(string.IsNullOrWhiteSpace(lastVersions))
+        return 0;
+
+    var versions = lastVersions
+        .Split('\n', StringSplitOptions.RemoveEmptyEntries);
+
+    var version = versions
         .Select(tagName =>
         {
             var tagNameSplit = tagName.Split('.');
