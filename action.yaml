@@ -5,6 +5,9 @@ inputs:
   package-flow:
     description: "Generate the package flow version."
     required: false
+  version:
+    description: "Version of packet."
+    required: false
 outputs:
   version-pack:
     description: "Version pack"
@@ -19,12 +22,24 @@ runs:
       shell: bash
       run: dotnet tool install -g dotnet-script
 
-    - name: Ejecutar script C#
+    - name: New version
+      if: inputs.version == ''
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx ${{ inputs.package-flow }})
-        
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunNewVersion.csx ${{ inputs.package-flow }})
+
+    - name: Update version
+      if: inputs.version != ''
+      id: run
+      shell: bash
+      run: |
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunUpdateVersion.csx pf=${{ inputs.package-flow } v=${{ inputs.version }})
+
+    - name: Read version
+      id: run
+      shell: bash
+      run: |  
         version_pack=$(echo "$output" | tail -n 3 | sed -n '1p')
         version_release=$(echo "$output" | tail -n 3 | sed -n '2p')
 

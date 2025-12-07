@@ -8,19 +8,16 @@ enum Patch
     Release
 }
 
-string GenerateVersionPatch(IList<string> args, string patchType)
+string GenerateVersionPatch(string patchBranch, string patchType)
 {
     string versionPatch;
     Patch patch = Patch.None;
 
-    if (args.Count() > 0)
-    {
-        var arg = args[0].ToUpper();
-        if(arg.Contains("CANDIDATE") || arg.Contains("RC"))
-            patch = Patch.ReleaseCandidate;
-        else if(arg.Contains("PRE"))
-            patch = Patch.Preview;
-    }
+    patchBranch = patchBranch.ToUpper();
+    if(patchBranch.Contains("CANDIDATE") || patchBranch.Contains("RC"))
+        patch = Patch.ReleaseCandidate;
+    else if(patchBranch.Contains("PRE"))
+        patch = Patch.Preview;
 
     if(patchType ==  "develop")
         versionPatch = $"-alpha";
