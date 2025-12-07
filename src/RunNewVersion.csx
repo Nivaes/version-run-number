@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 public (string numberVersion, string versionPack, string versionRelease) RunNewVersion(string packageFlow)
 {
-    string versionMajor = "0.0";
+    string versionMajor = "0.0.0";
     string prefixBranch = "";
 
     string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
@@ -21,7 +21,6 @@ public (string numberVersion, string versionPack, string versionRelease) RunNewV
     }
     else
     {
-        versionMajor = "0.0";
         prefixBranch = branch;
     }
 
