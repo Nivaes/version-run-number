@@ -5,6 +5,7 @@ using System;
 string packageFlow = "";
 var version = "";
 
+string version;
 string versionPack;
 string versionRelease;
 
@@ -19,12 +20,14 @@ foreach(var arg in Args)
 
 if(string.IsNullOrWhiteSpace(version) )
 {
-    (versionPack, versionRelease) = RunNewVersion(packageFlow);
+    (version, versionPack, versionRelease) = RunNewVersion(packageFlow);
 }
 else
 {
-    (versionPack, versionRelease) = RunUpdateVersion(version, packageFlow);
+    (version, versionPack, versionRelease) = RunUpdateVersion(version, packageFlow);
 }
 
+
+Console.WriteLine(version);
 Console.WriteLine(versionPack);
 Console.WriteLine(versionRelease);
