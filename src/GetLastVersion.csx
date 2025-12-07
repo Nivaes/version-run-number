@@ -1,20 +1,21 @@
-public int GetLastVersion(string branch)
+public int GetLastVersion(string versionMajor)
 {
-    string lastVersion = RunCommand("git", "describe --tags --abbrev=0");
+    string lastVersions = RunCommand("git", $"--no-pager tag --list \"{versionMajor}.*\"");
 
-    if(!lastVersion.StartsWith(branch))
-        return 0;
-
-    var patchVersionSplit = lastVersion.Split(".");
-
-    if(patchVersionSplit.Count() > 0)
-    {
-        lastVersion = patchVersionSplit[^1];
-        if(int.TryParse(lastVersion, out var lastVersionNumber))
+    var version = lastVersions
+        .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+        .Select(tagName =>
         {
-            return lastVersionNumber + 1;
-        }
-    }
+            var tagNameSplit = tagName.Split('.');
+            if(tagNameSplit.Count() > 0)
+            {
+                if(int.TryParse(tagNameSplit[^1], out int version))
+                    return version;
+            }
+            return -1;
+        })
+        .Distinct()
+        .Max();
 
-    return 0;
+    return version + 1;
 }

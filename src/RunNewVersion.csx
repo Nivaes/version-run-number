@@ -11,14 +11,16 @@ public (string versionPack, string versionRelease) RunNewVersion(string packageF
     string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
     var branch_part = branch.Split("/");
 
-    if(branch_part.Count() > 1)
+    if(branch_part.Count() == 1)
+        versionMajor = $"{branch}/0.0";
+    else
         versionMajor = branch_part[branch_part.Count() - 1];
 
-    var numberPatchVersion = GetLastVersion(branch);
+    var numberPatchVersion = GetLastVersion(versionMajor);
 
     string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
 
-    string version = $"{versionMajor}{versionPatch}";
+    // string version = $"{versionMajor}/{versionMajor}.{versionPatch}";
 
     GenerateTag($"{versionMajor}.{numberPatchVersion}");
 
