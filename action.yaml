@@ -24,20 +24,17 @@ runs:
 
     - name: New version
       if: inputs.version == ''
-      id: run
       shell: bash
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunNewVersion.csx ${{ inputs.package-flow }})
 
     - name: Update version
       if: inputs.version != ''
-      id: run
       shell: bash
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunUpdateVersion.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
 
     - name: Read version
-      id: run
       shell: bash
       run: |  
         version_pack=$(echo "$output" | tail -n 3 | sed -n '1p')
