@@ -5,7 +5,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-public (string version, string versionPack, string versionRelease) RunUpdateVersion(string version, string packageFlow)
+public (string numberVersion, string versionPack, string versionRelease) RunUpdateVersion(string version, string packageFlow)
 {
     string versionMajor = "0.0";
     string numberPatchVersion = "0";
@@ -35,9 +35,9 @@ public (string version, string versionPack, string versionRelease) RunUpdateVers
 
     string versionPatch = GenerateVersionPatch(packageFlow, prefixVersion);
 
-    var version = $"{versionMajor}.{numberPatchVersion}";
+    var numberVersion = $"{versionMajor}.{numberPatchVersion}";
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
     var versionRelease = $"{prefixVersion}/{versionMajor}.{numberPatchVersion}";
 
-    return (version, versionPack, versionRelease);
+    return (numberVersion, versionPack, versionRelease);
 }
