@@ -24,6 +24,7 @@ runs:
 
     - name: New version
       id: run
+      shell: bash
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
 
