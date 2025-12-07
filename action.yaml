@@ -28,20 +28,16 @@ runs:
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunNewVersion.csx ${{ inputs.package-flow }})
 
-        version_pack=$(echo "$output" | tail -n 3 | sed -n '1p')
-        version_release=$(echo "$output" | tail -n 3 | sed -n '2p')
-
-        echo Version release: $version_release version pack: $version_pack
-
-        echo "version-pack=$version_pack" >> $GITHUB_OUTPUT
-        echo "version-release=$version_release" >> $GITHUB_OUTPUT
-
     - name: Update version
       if: inputs.version != ''
       shell: bash
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunUpdateVersion.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
 
+    - name: Update version
+      id: run
+      shell: bash
+      run: |
         version_pack=$(echo "$output" | tail -n 3 | sed -n '1p')
         version_release=$(echo "$output" | tail -n 3 | sed -n '2p')
 
