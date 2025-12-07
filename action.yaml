@@ -35,7 +35,7 @@ runs:
         version_pack=$(echo "$output" | tail -n 3 | sed -n '2p')
         version_release=$(echo "$output" | tail -n 3 | sed -n '3p')
 
-        echo Number: $version_number release: $version_release version pack: $version_pack
+        echo number: $version_number pack: $version_pack release: $version_release
 
         echo "version-number=$version_number" >> $GITHUB_OUTPUT
         echo "version-pack=$version_pack" >> $GITHUB_OUTPUT
