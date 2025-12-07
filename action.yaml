@@ -34,7 +34,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunUpdateVersion.csx pf=${{ inputs.package-flow } v=${{ inputs.version }})
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/RunUpdateVersion.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
 
     - name: Read version
       id: run
