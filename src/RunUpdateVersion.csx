@@ -7,7 +7,6 @@ using System;
 string packageFlow = "";
 var version = "";
 
-// var args = Args.Split(" ");
 foreach(var arg in Args)
 {
     var parts = arg.Split("=");
