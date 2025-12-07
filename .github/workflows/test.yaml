@@ -11,6 +11,8 @@ jobs:
       - uses: ./
         id: get_version
       - name: version-pack
+        run: echo ${{ steps.get_version.outputs.version }}
+      - name: version-pack
         run: echo ${{ steps.get_version.outputs.version-pack }}
       - name: version-release
         run: echo ${{ steps.get_version.outputs.version-release }}
@@ -48,6 +50,8 @@ jobs:
         id: get_version
         with:
           version: 0.0.2
+      - name: version-pack
+        run: echo ${{ steps.get_version.outputs.version }}
       - name: version-pack
         run: echo ${{ steps.get_version.outputs.version-pack }}
       - name: version-release
