@@ -35,9 +35,9 @@ public (string numberVersion, string versionPack, string versionRelease) RunUpda
 
     string versionPatch = GenerateVersionPatch(packageFlow, prefixVersion);
 
-    var numberVersion = $"{versionMajor}.{numberPatchVersion}";
+    var versionNumber = $"{versionMajor}.{numberPatchVersion}";
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
     var versionRelease = $"{prefixVersion}/{versionMajor}.{numberPatchVersion}";
 
-    return (numberVersion, versionPack, versionRelease);
+    return (versionNumber, versionPack, versionRelease);
 }

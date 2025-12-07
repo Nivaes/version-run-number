@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v5
       - uses: ./
         id: get_version
-      - name: version-pack
-        run: echo ${{ steps.get_version.outputs.version }}
+      - name: version-number
+        run: echo ${{ steps.get_version.outputs.version-number }}
       - name: version-pack
         run: echo ${{ steps.get_version.outputs.version-pack }}
       - name: version-release
@@ -50,8 +50,8 @@ jobs:
         id: get_version
         with:
           version: 0.0.2
-      - name: version-pack
-        run: echo ${{ steps.get_version.outputs.version }}
+      - name: version-number
+        run: echo ${{ steps.get_version.outputs.version-number }}
       - name: version-pack
         run: echo ${{ steps.get_version.outputs.version-pack }}
       - name: version-release

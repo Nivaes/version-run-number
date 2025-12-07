@@ -9,9 +9,9 @@ inputs:
     description: "Version of packet."
     required: false
 outputs:
-  number-version:
-    description: "Number of version"
-    value: ${{ steps.run.outputs.version }}
+  version_number:
+    description: "Version number"
+    value: ${{ steps.run.outputs.version_number }}
   version-pack:
     description: "Version pack"
     value: ${{ steps.run.outputs.version-pack }}
@@ -31,13 +31,13 @@ runs:
       run: |
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
 
-        number_version=$(echo "$output" | tail -n 3 | sed -n '1p')
+        version_number=$(echo "$output" | tail -n 3 | sed -n '1p')
         version_pack=$(echo "$output" | tail -n 3 | sed -n '2p')
         version_release=$(echo "$output" | tail -n 3 | sed -n '3p')
 
-        echo Number: $number_version release: $version_release version pack: $version_pack
+        echo Number: $version_number release: $version_release version pack: $version_pack
 
-        echo "version-version=$number_version" >> $GITHUB_OUTPUT
+        echo "version-number=$version_number" >> $GITHUB_OUTPUT
         echo "version-pack=$version_pack" >> $GITHUB_OUTPUT
         echo "version-release=$version_release" >> $GITHUB_OUTPUT
 

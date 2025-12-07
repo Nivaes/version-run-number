@@ -29,9 +29,9 @@ public (string numberVersion, string versionPack, string versionRelease) RunNewV
 
     string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
 
-    var numberVersion = $"{versionMajor}.{numberPatchVersion}";
+    var versionNumber = $"{versionMajor}.{numberPatchVersion}";
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
     var versionRelease = $"{prefixBranch}/{versionMajor}.{numberPatchVersion}";
 
-    return (numberVersion, versionPack, versionRelease);
+    return (versionNumber, versionPack, versionRelease);
 }
