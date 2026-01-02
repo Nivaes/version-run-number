@@ -3,7 +3,7 @@ description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 inputs:
   branch:
-    description: "Version of packet."
+    description: "Branch"
     required: false
 outputs:
   version-number:
