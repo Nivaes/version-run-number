@@ -2,10 +2,7 @@ name: "Version Pack"
 description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 inputs:
-  package-flow:
-    description: "Generate the package flow version."
-    required: false
-  version:
+  branch:
     description: "Version of packet."
     required: false
 outputs:
@@ -29,7 +26,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx pf=${{ inputs.package-flow }} v=${{ inputs.version }})
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx brach=${{ inputs.branch }})
 
         version_number=$(echo "$output" | tail -n 3 | sed -n '1p')
         version_pack=$(echo "$output" | tail -n 3 | sed -n '2p')

@@ -5,12 +5,14 @@
 using System;
 using System.Text.RegularExpressions;
 
-public (string numberVersion, string versionPack, string versionRelease) RunNewVersion(string packageFlow)
+public (string numberVersion, string versionPack, string versionRelease) RunVersion(string branch)
 {
     string versionMajor = "0.0.0";
     string prefixBranch = "";
 
-    string branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
+    if(string.IsNullOrWhiteSpace(branch))
+        branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
+
     var branch_part = branch.Split("/");
 
     var regex = new Regex(@"^\d+(\.\d+)*$");
@@ -26,7 +28,7 @@ public (string numberVersion, string versionPack, string versionRelease) RunNewV
 
     var numberPatchVersion = GetLastVersion($"{prefixBranch}/{versionMajor}") + 1;
 
-    string versionPatch = GenerateVersionPatch(packageFlow, branch_part[0]);
+    string versionPatch = GenerateVersionPatch(branch_part[0]);
 
     var versionNumber = $"{versionMajor}.{numberPatchVersion}";
     var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";

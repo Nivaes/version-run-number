@@ -1,45 +1,19 @@
 #load "RunCommand.csx"
 
-enum Patch
+string GenerateVersionPatch(string patchType)
 {
-    None,
-    Preview,
-    ReleaseCandidate,
-    Release
-}
-
-string GenerateVersionPatch(string patchBranch, string patchType)
-{
-    string versionPatch;
-    Patch patch = Patch.None;
-
-    patchBranch = patchBranch.ToUpper();
-    if(patchBranch.Contains("CANDIDATE") || patchBranch.Contains("RC"))
-        patch = Patch.ReleaseCandidate;
-    else if(patchBranch.Contains("PRE"))
-        patch = Patch.Preview;
-
-    if(patchType ==  "develop")
-        versionPatch = $"-alpha";
-    else if(patchType ==  "alpha")
-        versionPatch = $"-alpha";
-    else if(patchType ==  "beta")
-        versionPatch = $"-beta.";
-    else if(patchType ==  "preview")
-        versionPatch = $"-preview";
-    else if(patchType == "rc")
-        versionPatch = $"-rc.";
+    if(patchType.StartsWith("dev"))
+        return $"-alpha";
+    else if(patchType.StartsWith("a"))
+        return $"-alpha";
+    else if(patchType.StartsWith("b"))
+        return $"-beta";
+    else if(patchType.StartsWith("pre"))
+        return "-preview";
+    else if(patchType == "rc" || patchType.StartsWith("can"))
+        return $"-rc";
     else if(patchType == "release")
-    {
-        if(patch == Patch.Preview)
-            versionPatch = $"-preview";
-        else if(patch == Patch.ReleaseCandidate)
-            versionPatch = $"-rc";
-        else
-            versionPatch = $"";
-    }
+        return $"";
     else 
-        versionPatch = $"-alpha";
-
-    return versionPatch;
+        return $"-alpha";
 }
