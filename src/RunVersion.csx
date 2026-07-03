@@ -4,7 +4,7 @@
 
 public (string numberVersion, string versionPack, string versionRelease) RunVersion(string prerelease, string version)
 {
-    if(!string.IsNullOrWhiteSpace(prerelease))
+    if(string.IsNullOrWhiteSpace(version))
     {
         return GenerateNewVersion(prerelease);
     }
