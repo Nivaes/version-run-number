@@ -1,6 +1,5 @@
-#load "RunCommand.csx"
-#load "GenerateVersionPatch.csx"
-#load "GetLastMinorVersion.csx"
+#load "GenerateNewVersion.csx"
+#load "GenerateVersion.csx"
 #load "GenerateTag.csx"
 
 public (string numberVersion, string versionPack, string versionRelease) RunVersion(string prerelease, string version)

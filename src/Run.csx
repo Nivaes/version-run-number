@@ -6,10 +6,13 @@ var prerelease = "";
 
 foreach(var arg in Args)
 {
+    if (!Args[i].StartsWith("--"))
+        continue;
+
     var parts = arg.Split("=");
-    if(parts[0] == "prerelease")
+    if(parts[0] == "--prerelease")
         prerelease = parts[1];
-    if(parts[0] == "version")
+    if(parts[0] == "--version")
         version = parts[1];
 }
 
