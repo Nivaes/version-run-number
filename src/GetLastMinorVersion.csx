@@ -3,6 +3,7 @@ using System;
 public int GetLastMinorVersion(string versionMajor)
 {
     var lastVersions = RunCommand("git", $"ls-remote --tags origin '{versionMajor}.*'");
+    Console.WriteLine($"Last versions for major version '{versionMajor}': {lastVersions}");
 
     if (string.IsNullOrWhiteSpace(lastVersions))
         return 0;
