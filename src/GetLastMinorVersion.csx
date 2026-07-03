@@ -2,7 +2,7 @@ using System;
 
 public int GetLastMinorVersion(string versionMajor)
 {
-    var lastVersions = RunCommand("git", $"ls-remote --tags origin 'v{versionMajor}.*'");
+    var lastVersions = RunCommand("git", $"ls-remote --tags origin '{versionMajor}.*'");
 
     if (string.IsNullOrWhiteSpace(lastVersions))
         return 0;
