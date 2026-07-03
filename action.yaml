@@ -2,9 +2,12 @@ name: "Version Pack"
 description: "Generates a version number from github.ref.version-pack"
 author: "Nivaes"
 inputs:
-  branch:
-    description: "Branch"
+  prerelease:
+    description: "Prerelease identifier"
     required: false
+  version:
+    description: "Version number"
+    required: false   
 outputs:
   version-number:
     description: "Version number"
@@ -18,7 +21,7 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Instalar dotnet-script
+    - name: Install dotnet-script
       shell: bash
       run: dotnet tool install -g dotnet-script
 
@@ -26,7 +29,7 @@ runs:
       id: run
       shell: bash
       run: |
-        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx brach=${{ inputs.branch }})
+        output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx prerelease='${{ inputs.prerelease }}' version='${{ inputs.version }}')
 
         version_number=$(echo "$output" | tail -n 3 | sed -n '1p')
         version_pack=$(echo "$output" | tail -n 3 | sed -n '2p')

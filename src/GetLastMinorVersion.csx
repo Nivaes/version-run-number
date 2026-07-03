@@ -1,10 +1,10 @@
 using System;
 
-public int GetLastVersion(string versionMajor)
+public int GetLastMinorVersion(string versionMajor)
 {
-    string lastVersions = RunCommand("git", $"--no-pager tag --list \"{versionMajor}.*\"");
+    string lastVersion = RunCommand("git", $"ls-remote --tags origin 'v{versionMajor}.*'");
 
-    if(string.IsNullOrWhiteSpace(lastVersions))
+    if (string.IsNullOrWhiteSpace(lastVersions))
         return 0;
 
     var versions = lastVersions
@@ -14,9 +14,9 @@ public int GetLastVersion(string versionMajor)
         .Select(tagName =>
         {
             var tagNameSplit = tagName.Split('.');
-            if(tagNameSplit.Count() > 0)
+            if (tagNameSplit.Count() > 0)
             {
-                if(int.TryParse(tagNameSplit[^1], out int version))
+                if (int.TryParse(tagNameSplit[^1], out int version))
                     return version;
             }
             return -1;

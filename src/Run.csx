@@ -7,7 +7,7 @@ var version = "";
 foreach(var arg in Args)
 {
     var parts = arg.Split("=");
-    if(parts[0] == "branch")
+    if(parts[0] == "version")
         version = parts[1];
 }
 

@@ -1,38 +1,20 @@
 #load "RunCommand.csx"
 #load "GenerateVersionPatch.csx"
-#load "GetLastVersion.csx"
+#load "GetLastMinorVersion.csx"
 #load "GenerateTag.csx"
-using System;
-using System.Text.RegularExpressions;
 
-public (string numberVersion, string versionPack, string versionRelease) RunVersion(string branch)
+public (string numberVersion, string versionPack, string versionRelease) RunVersion(string prerelease, string version)
 {
-    string versionMajor = "0.0.0";
-    string prefixBranch = "";
-
-    if(string.IsNullOrWhiteSpace(branch))
-        branch = RunCommand("git", "rev-parse --abbrev-ref HEAD");
-
-    var branch_part = branch.Split("/");
-
-    var regex = new Regex(@"^\d+(\.\d+)*$");
-    if(branch_part.Count() > 0 && regex.IsMatch(branch_part[^1]))
+    if(!string.IsNullOrWhiteSpace(prerelease))
     {
-        versionMajor = branch_part[^1];
-        prefixBranch = string.Join("", branch_part[..^1]);
+        return GenerateNewVersion(prerelease);
+    }
+    if(!string.IsNullOrWhiteSpace(version))
+    {
+        return GenerateVersion(version);
     }
     else
     {
-        prefixBranch = branch;
+        throw new Exception($"No valid input provided. Please provide either a prerelease or version.");
     }
-
-    var numberPatchVersion = GetLastVersion($"{prefixBranch}/{versionMajor}") + 1;
-
-    string versionPatch = GenerateVersionPatch(branch_part[0]);
-
-    var versionNumber = $"{versionMajor}.{numberPatchVersion}";
-    var versionPack = $"{versionMajor}{versionPatch}.{numberPatchVersion}";
-    var versionRelease = $"{prefixBranch}/{versionMajor}.{numberPatchVersion}";
-
-    return (versionNumber, versionPack, versionRelease);
 }
