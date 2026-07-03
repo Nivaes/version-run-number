@@ -29,6 +29,7 @@ runs:
       id: run
       shell: bash
       run: |
+        git ls-remote --tags origin '2.3.*'
         ~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx -- --prerelease="${{ inputs.prerelease }}" --version="${{ inputs.version }}"
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx -- --prerelease="${{ inputs.prerelease }}" --version="${{ inputs.version }}")
 

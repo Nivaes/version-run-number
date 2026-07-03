@@ -1,6 +1,9 @@
 string RunCommand(string cmd, string args)
 {
-    var psi = new ProcessStartInfo {
+ using var process = new Process();
+
+    process.StartInfo = new ProcessStartInfo
+    {
         FileName = cmd,
         Arguments = args,
         RedirectStandardOutput = true,
@@ -9,13 +12,23 @@ string RunCommand(string cmd, string args)
         CreateNoWindow = true
     };
 
-    var p = Process.Start(psi);
-    string output = p.StandardOutput.ReadToEnd().Trim();
-    string error = p.StandardError.ReadToEnd().Trim();
-    p.WaitForExit();
+    process.Start();
+
+    var outputTask = process.StandardOutput.ReadToEndAsync();
+    var errorTask = process.StandardError.ReadToEndAsync();
+
+    process.WaitForExit();
+
+    Task.WaitAll(outputTask, errorTask);
+
+    var output = outputTask.Result.Trim();
+    var error = errorTask.Result.Trim();
 
     if (!string.IsNullOrWhiteSpace(error))
-        Console.Error.WriteLine($"[ERR] {error}");
+        Console.Error.WriteLine(error);
+
+    if (process.ExitCode != 0)
+        throw new Exception($"'{cmd}' end with code {process.ExitCode}");
 
     return output;
 }
