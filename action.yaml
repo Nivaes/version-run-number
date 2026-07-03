@@ -29,6 +29,8 @@ runs:
       id: run
       shell: bash
       run: |
+        git ls-remote --tags origin '{versionMajor}.*'
+        
         output=$(~/.dotnet/tools/dotnet-script $GITHUB_ACTION_PATH/src/Run.csx -- --prerelease="${{ inputs.prerelease }}" --version="${{ inputs.version }}")
 
         version_number=$(echo "$output" | tail -n 3 | sed -n '1p')
