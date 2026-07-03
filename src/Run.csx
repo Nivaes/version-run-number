@@ -15,8 +15,6 @@ foreach(var arg in Args)
         version = parts[1];
 }
 
-Console.WriteLine($"RunVersion called with prerelease: {prerelease}, version: {version}");
-
 string numberVersion;
 string versionPack;
 string versionRelease;
