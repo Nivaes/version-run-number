@@ -1,6 +1,7 @@
 #load "RunCommand.csx"
 #load "GenerateVersionPatch.csx"
 #load "GetLastMinorVersion.csx"
+using System.Text.RegularExpressions;
 
 (string versionNumber, string versionPack, string versionRelease) GenerateNewVersion(string prerelease)
 {
@@ -16,7 +17,7 @@
 
         var numberPatchVersion = GetLastMinorVersion(versionMajor) + 1;
 
-        string versionPrerelease = GenerateVersionPatch(patchType, prerelease);
+        string versionPrerelease = GenerateVersionPatch(patchType, prerelease, false);
 
         var versionNumber = $"{versionMajor}.{numberPatchVersion}";
         var versionPack = $"{versionMajor}{versionPrerelease}.{numberPatchVersion}";

@@ -13,7 +13,7 @@
         var versionMajor = string.Join(".", versionPatch[..^1]);
         var versionMinor = versionPatch[^1];
 
-        string versionPrerelease = GenerateVersionPatch(patchType, "");
+        string versionPrerelease = GenerateVersionPatch(patchType, "", true);
 
         var versionNumber = $"{versionMajor}.{versionMinor}";
         var versionPack = $"{versionMajor}{versionPrerelease}.{versionMinor}";

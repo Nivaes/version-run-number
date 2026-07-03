@@ -1,12 +1,11 @@
 #load "RunVersion.csx"
 
-string packageFlow = "";
 var version = "";
 var prerelease = "";
 
 foreach(var arg in Args)
 {
-    if (!Args[i].StartsWith("--"))
+    if (!arg.StartsWith("--"))
         continue;
 
     var parts = arg.Split("=");
@@ -16,11 +15,13 @@ foreach(var arg in Args)
         version = parts[1];
 }
 
+Console.WriteLine($"RunVersion called with prerelease: {prerelease}, version: {version}");
+
 string numberVersion;
 string versionPack;
 string versionRelease;
 
-(numberVersion, versionPack, versionRelease) = RunVersion(version);
+(numberVersion, versionPack, versionRelease) = RunVersion(prerelease,version);
 
 Console.WriteLine(numberVersion);
 Console.WriteLine(versionPack);

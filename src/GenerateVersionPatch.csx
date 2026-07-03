@@ -1,6 +1,6 @@
 #load "RunCommand.csx"
 
-string GenerateVersionPatch(string patchType, string prerelease)
+string GenerateVersionPatch(string patchType, string prerelease, bool canRelease)
     {
         patchType = patchType.ToLower();
         prerelease = prerelease.ToLower();
@@ -23,7 +23,7 @@ string GenerateVersionPatch(string patchType, string prerelease)
         else if (patchType == "rc" || patchType.Contains("can"))
             return $"-rc";
 
-        if(string.IsNullOrEmpty(prerelease))
+        if(canRelease)
             return $"";
         else
             return $"-preview";
