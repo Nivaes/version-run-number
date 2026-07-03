@@ -23,6 +23,8 @@ using System.Text.RegularExpressions;
         var versionPack = $"{versionMajor}{versionPrerelease}.{numberPatchVersion}";
         var versionRelease = $"{patchType}/{versionMajor}.{numberPatchVersion}";
 
+        GenerateTag(versionRelease);
+
         return (versionNumber, versionPack, versionRelease);
     }
     else
